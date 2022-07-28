@@ -1,5 +1,6 @@
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const ModuleFederationPlugin = require("webpack/lib/container/ModuleFederationPlugin");
+const { MFLiveReloadPlugin } = require("@module-federation/fmr");
 const deps = require("./package.json").dependencies;
 
 module.exports = () => ({
@@ -19,6 +20,11 @@ module.exports = () => ({
   plugins: [
     new HtmlWebpackPlugin({
       template: "./public/index.html",
+    }),
+    new MFLiveReloadPlugin({
+      port: 9001,
+      container: "reactApp",
+      standalone: true,
     }),
     new ModuleFederationPlugin({
       name: "reactApp",
