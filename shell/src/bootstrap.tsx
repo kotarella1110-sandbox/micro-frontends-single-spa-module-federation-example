@@ -19,6 +19,4 @@ registerApplication({
   activeWhen: "/react",
 });
 
-start({
-  urlRerouteOnly: true,
-});
+start();
