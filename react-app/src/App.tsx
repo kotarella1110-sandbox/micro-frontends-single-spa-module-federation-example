@@ -1,8 +1,22 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import singleSpaReact from "single-spa-react";
+import { About } from "./components/Abount";
+import { Home } from "./components/Home";
+import { NavBar } from "./components/NavBar";
+import { Topics } from "./components/Topics";
 
-export const App = (): JSX.Element => <h1>React App is mounted!</h1>;
+export const App = () => (
+  <BrowserRouter basename="/react">
+    <NavBar />
+    <Routes>
+      <Route index element={<Home />} />
+      <Route path="about" element={<About />} />
+      <Route path="topics" element={<Topics />} />
+    </Routes>
+  </BrowserRouter>
+);
 
 export const { bootstrap, mount, unmount } = singleSpaReact({
   React,
