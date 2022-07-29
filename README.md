@@ -5,18 +5,9 @@ The single-spa team recommends using SystemJS + import maps as a way to load Mic
 
 ## Quick start
 
-1. Installation
-
 ```sh
-npm install --prefix shell
-npm install --prefix react-app
+npm install
+npm run dev
 ```
 
-2. Run locally
-
-```sh
-npm run dev --prefix shell
-npm run dev --prefix react-app
-```
-
-3. Access http://localhost:9000
+Access http://localhost:9000
