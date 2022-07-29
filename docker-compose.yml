@@ -1,0 +1,14 @@
+version: '3'
+services:
+  shell:
+    build: 
+      context: .
+      dockerfile: 'docker/shell.dockerfile'
+    ports: 
+      - 9000:9000
+  react-app:
+    build:
+      context: .
+      dockerfile: 'docker/react-app.dockerfile'
+    ports: 
+      - 9001:9001
