@@ -1,7 +1,7 @@
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const ModuleFederationPlugin = require("webpack/lib/container/ModuleFederationPlugin");
 const { MFLiveReloadPlugin } = require("@module-federation/fmr");
-const deps = require("./package.json").dependencies;
+const { dependencies } = require("./package.json");
 
 module.exports = (_, argv) => {
   const isProduction = argv.mode === "production";
@@ -37,14 +37,14 @@ module.exports = (_, argv) => {
         },
         shared: [
           {
-            ...deps,
+            ...dependencies,
             react: {
               singleton: true,
-              requiredVersion: deps.react,
+              requiredVersion: dependencies.react,
             },
             "react-dom": {
               singleton: true,
-              requiredVersion: deps["react-dom"],
+              requiredVersion: dependencies["react-dom"],
             },
           },
         ],
