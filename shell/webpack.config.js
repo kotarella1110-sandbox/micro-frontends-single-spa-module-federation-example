@@ -3,52 +3,56 @@ const ModuleFederationPlugin = require("webpack/lib/container/ModuleFederationPl
 const { MFLiveReloadPlugin } = require("@module-federation/fmr");
 const deps = require("./package.json").dependencies;
 
-module.exports = () => ({
-  entry: "./src/index.ts",
-  module: {
-    rules: [
-      {
-        test: /\.tsx?$/,
-        loader: "babel-loader",
-        exclude: /node_modules/,
-      },
-    ],
-  },
-  resolve: {
-    extensions: [".js", ".tsx", ".jsx", ".ts"],
-  },
-  plugins: [
-    new HtmlWebpackPlugin({
-      template: "./public/index.html",
-    }),
-    new MFLiveReloadPlugin({
-      port: 9000,
-      container: "shell",
-      standalone: true,
-    }),
-    new ModuleFederationPlugin({
-      name: "shell",
-      filename: "remoteEntry.js",
-      remotes: {
-        reactApp: "reactApp@http://localhost:9001/remoteEntry.js",
-      },
-      shared: [
+module.exports = (_, argv) => {
+  const isProduction = argv.mode == "production";
+  return {
+    entry: "./src/index.ts",
+    module: {
+      rules: [
         {
-          ...deps,
-          react: {
-            singleton: true,
-            requiredVersion: deps.react,
-          },
-          "react-dom": {
-            singleton: true,
-            requiredVersion: deps["react-dom"],
-          },
+          test: /\.tsx?$/,
+          loader: "babel-loader",
+          exclude: /node_modules/,
         },
       ],
-    }),
-  ],
-  devServer: {
-    port: 9000,
-    historyApiFallback: true,
-  },
-});
+    },
+    resolve: {
+      extensions: [".js", ".tsx", ".jsx", ".ts"],
+    },
+    plugins: [
+      new HtmlWebpackPlugin({
+        template: "./public/index.html",
+      }),
+      !isProduction &&
+        new MFLiveReloadPlugin({
+          port: 9000,
+          container: "shell",
+          standalone: true,
+        }),
+      new ModuleFederationPlugin({
+        name: "shell",
+        filename: "remoteEntry.js",
+        remotes: {
+          reactApp: "reactApp@http://localhost:9001/remoteEntry.js",
+        },
+        shared: [
+          {
+            ...deps,
+            react: {
+              singleton: true,
+              requiredVersion: deps.react,
+            },
+            "react-dom": {
+              singleton: true,
+              requiredVersion: deps["react-dom"],
+            },
+          },
+        ],
+      }),
+    ].filter(Boolean),
+    devServer: {
+      port: 9000,
+      historyApiFallback: true,
+    },
+  };
+};
