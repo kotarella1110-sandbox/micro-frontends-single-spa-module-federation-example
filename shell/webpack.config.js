@@ -51,7 +51,6 @@ module.exports = (_, argv) => {
       }),
     ].filter(Boolean),
     devServer: {
-      port: 9000,
       historyApiFallback: true,
     },
   };
