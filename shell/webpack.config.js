@@ -11,7 +11,24 @@ module.exports = (_, argv) => {
       rules: [
         {
           test: /\.tsx?$/,
-          loader: "babel-loader",
+          use: {
+            loader: "swc-loader",
+            options: {
+              sourceMaps: true,
+              minify: isProduction,
+              jsc: {
+                parser: {
+                  syntax: "typescript",
+                  tsx: true,
+                },
+                transform: {
+                  react: {
+                    runtime: "automatic",
+                  },
+                },
+              },
+            },
+          },
           exclude: /node_modules/,
         },
       ],
