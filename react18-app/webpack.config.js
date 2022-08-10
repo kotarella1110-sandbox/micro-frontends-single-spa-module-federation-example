@@ -4,8 +4,8 @@ const { MFLiveReloadPlugin } = require("@module-federation/fmr");
 const { dependencies } = require("./package.json");
 
 module.exports = (_, argv) => {
-  const name = "shell";
-  const isProduction = argv.mode == "production";
+  const name = "react18App";
+  const isProduction = argv.mode === "production";
   return {
     entry: "./src/index",
     module: {
@@ -43,15 +43,15 @@ module.exports = (_, argv) => {
       }),
       !isProduction &&
         new MFLiveReloadPlugin({
-          port: 9000,
+          port: 9001,
           container: name,
           standalone: true,
         }),
       new ModuleFederationPlugin({
         name,
-        remotes: {
-          react17App: "react17App@http://localhost:9001/remoteEntry.js",
-          react18App: "react18App@http://localhost:9002/remoteEntry.js",
+        filename: "remoteEntry.js",
+        exposes: {
+          "./App": "./src/App",
         },
         shared: [
           {

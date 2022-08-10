@@ -1,30 +1,29 @@
 {
-  "name": "shell",
+  "name": "react17-app",
   "version": "0.0.0",
-  "description": "Shell Application",
+  "description": "React17 Application",
   "author": "kotarella1110",
   "license": "MIT",
   "engines": {
     "node": "16.x"
   },
   "scripts": {
-    "dev": "webpack-cli serve --mode development --port 9000",
+    "dev": "webpack-cli serve --mode development --port 9001",
     "prebuild": "rimraf dist",
     "build": "webpack --mode production",
-    "start": "serve dist -s -l 9000"
+    "start": "serve dist -s -l 9001"
   },
   "dependencies": {
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "single-spa": "^5.9.4"
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-router-dom": "^6.3.0"
   },
   "devDependencies": {
     "@module-federation/fmr": "^0.0.7",
     "@swc/core": "^1.2.222",
-    "@types/react": "^18.0.15",
-    "@types/react-dom": "^18.0.6",
+    "@types/react": "^17.0.48",
+    "@types/react-dom": "^17.0.17",
     "html-webpack-plugin": "^5.5.0",
-    "regenerator-runtime": "^0.13.9",
     "rimraf": "^3.0.2",
     "serve": "^14.0.1",
     "swc-loader": "^0.2.3",

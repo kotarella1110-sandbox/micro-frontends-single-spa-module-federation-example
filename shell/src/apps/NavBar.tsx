@@ -1,36 +1,44 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import singleSpaReact from "single-spa-react";
+import { StrictMode } from "react";
+import { createRoot, Root } from "react-dom/client";
 import { navigateToUrl } from "single-spa";
 
 export const NavBar = () => (
-  <React.StrictMode>
-    <nav>
-      <ul style={{ display: "flex", listStyle: "none", margin: 0, padding: 0 }}>
-        <li style={{ padding: "8px" }}>
-          <a href="/" onClick={navigateToUrl}>
-            Home
-          </a>
-        </li>
-        <li style={{ padding: "8px" }}>
-          <a href="/react" onClick={navigateToUrl}>
-            React
-          </a>
-        </li>
-      </ul>
-    </nav>
-  </React.StrictMode>
+  <nav>
+    <ul style={{ display: "flex", listStyle: "none", margin: 0, padding: 0 }}>
+      <li style={{ padding: "8px" }}>
+        <a href="/" onClick={navigateToUrl}>
+          Home
+        </a>
+      </li>
+      <li style={{ padding: "8px" }}>
+        <a href="/react17" onClick={navigateToUrl}>
+          React17
+        </a>
+      </li>
+      <li style={{ padding: "8px" }}>
+        <a href="/react18" onClick={navigateToUrl}>
+          React18
+        </a>
+      </li>
+    </ul>
+  </nav>
 );
 
-const lifecycles = singleSpaReact({
-  React,
-  ReactDOM,
-  rootComponent: NavBar,
-  domElementGetter: () => document.getElementById("nav-bar")!,
-});
+let root: Root;
 
-export const bootstrap = lifecycles.bootstrap;
-export const mount = lifecycles.mount;
-export const unmount = lifecycles.unmount;
+export async function bootstrap() {}
+
+export async function mount() {
+  root = createRoot(document.getElementById("nav-bar")!);
+  root.render(
+    <StrictMode>
+      <NavBar />
+    </StrictMode>
+  );
+}
+
+export async function unmount() {
+  root.unmount();
+}
 
 export default NavBar;

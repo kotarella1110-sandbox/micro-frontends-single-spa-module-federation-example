@@ -1,14 +1,13 @@
-import React from "react";
-import ReactDOM from "react-dom";
+import { StrictMode, useRef } from "react";
+import { render, unmountComponentAtNode } from "react-dom";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import singleSpaReact from "single-spa-react";
 import { NavBar } from "./components/NavBar";
 import { Home } from "./components/Home";
 import { About } from "./components/About";
 import { Topics } from "./components/Topics";
 
-export const App = () => (
-  <BrowserRouter basename="react">
+const App = () => (
+  <BrowserRouter basename="react17">
     <NavBar />
     <Routes>
       <Route index element={<Home />} />
@@ -18,11 +17,21 @@ export const App = () => (
   </BrowserRouter>
 );
 
-export const { bootstrap, mount, unmount } = singleSpaReact({
-  React,
-  ReactDOM,
-  rootComponent: App,
-  domElementGetter: () => document.getElementById("root")!,
-});
+const container = document.getElementById("root")!;
+
+export async function bootstrap() {}
+
+export async function mount() {
+  render(
+    <StrictMode>
+      <App />
+    </StrictMode>,
+    container
+  );
+}
+
+export async function unmount() {
+  unmountComponentAtNode(container);
+}
 
 export default App;

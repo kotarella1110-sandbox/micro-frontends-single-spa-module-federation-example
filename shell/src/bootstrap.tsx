@@ -13,10 +13,17 @@ registerApplication({
 });
 
 registerApplication({
-  name: "reactApp",
+  name: "react17App",
   // @ts-ignore
-  app: () => import("reactApp/ReactApp"),
-  activeWhen: "/react",
+  app: () => import("react17App/App"),
+  activeWhen: "/react17",
+});
+
+registerApplication({
+  name: "react18App",
+  // @ts-ignore
+  app: () => import("react18App/App"),
+  activeWhen: "/react18",
 });
 
 start();
